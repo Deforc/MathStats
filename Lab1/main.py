@@ -9,7 +9,7 @@ def bins_calculation(sample, border):
     return (int((max(sample) - min(sample) / border)) + 1) * 5
 def compare_with_continuous_dist(distribution, distribution_text, bins_calculation, border):
     plt.subplots_adjust(wspace=0.3, hspace=0.4)
-    for i, N in enumerate({500, 100, 20}):
+    for i, N in enumerate({1000, 50, 10}):
         plt.subplot(1, 3, i + 1)
         sample = distribution.rvs(size=N)
         grid = np.linspace(-border, border, 1000)
@@ -28,7 +28,7 @@ plt.clf()
 compare_with_continuous_dist(sps.uniform(loc=-3**0.5, scale = 2 * 3**0.5), "Uniform", bins_calculation, 3**0.5)
 def compare_with_discrete_dist(distribution, distribution_text, bins_calculation, border):
     plt.subplots_adjust(wspace=0.3, hspace=0.4)
-    for i, N in enumerate({20, 100, 500}):
+    for i, N in enumerate({10, 50, 1000}):
         plt.subplot(1, 3, i + 1)
         sample = distribution.rvs(size=N)
         grid = range(0, border + 1)

@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 import seaborn as sns
 position_characteristics_for_all_N = {}
-for N in {20, 100, 500}:
+for N in {10, 100, 1000}:
     position_characteristics_for_all_N[N] = pd.DataFrame({"sample_average" : [],
                                    "sample_median" : [],
                                    "half_sum_extreme_elements" : [],
@@ -15,6 +15,10 @@ for N in {20, 100, 500}:
     for i in range(1000):
         temp_position_characteristics = []
         sample = sps.norm.rvs(size=N)
+        # sample = sps.cauchy.rvs(size=N)
+        # sample = sps.uniform.rvs(size=N)
+        # sample = sps.poisson.rvs(mu = 10, size=N)
+        # sample = sps.t.rvs(df = 3, size=N)
         sample.sort()
         temp_position_characteristics.append(np.mean(sample))
         temp_position_characteristics.append(np.median(sample))
@@ -24,7 +28,7 @@ for N in {20, 100, 500}:
 
         position_characteristics_for_all_N[N].loc[len(position_characteristics_for_all_N[N].index)] = temp_position_characteristics
 results = pd.DataFrame()
-for N in {20, 100, 500}:
+for N in {10, 100, 1000}:
     results = pd.concat([results, position_characteristics_for_all_N[N].
                         agg(["mean", lambda x: x.var(ddof=0)]).
                         rename(index={"mean":f"E(z) for N = {N}", "<lambda>":f"D(z) for N = {N}"})])
